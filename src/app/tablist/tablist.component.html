@@ -1,0 +1,14 @@
+<div>
+    <div>
+        <form [formGroup]="addTabForm" (ngSubmit)="addTab(addTabForm)">
+            <label for="name">New Tab:</label>
+            <input type="text" name="name" formControlName="name">
+            <button>Add Tab</button>
+        </form>
+    </div>
+    <div>
+        <div *ngFor="let tab of tabItems">
+            <h4>{{tab.name}}</h4>
+        </div>
+    </div>
+</div>

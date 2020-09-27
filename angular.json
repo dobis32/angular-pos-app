@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pos-app"
+    }
+  },
+  "defaultProject": "pos-app",
+  "cli": {
+    "analytics": false
+  }
 }
