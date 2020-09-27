@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { MockTabData } from '../mock-data';
 
 @Injectable({
@@ -7,16 +7,19 @@ import { MockTabData } from '../mock-data';
 })
 export class StateService {
 	private tabsArray: Array<any>;
-	constructor(private tabSubject: Subject<any>) {
+	constructor(private tabsSubject: Subject<any>) {
 		this.setTabs(MockTabData);
 	}
 
 	setTabs(data) {
 		this.tabsArray = data;
-		this.tabSubject.next(this.tabsArray);
 	}
 
 	getTabs() {
-		return this.tabSubject;
+		return this.tabsSubject;
+	}
+
+	refresh() {
+		this.tabsSubject.next(this.tabsArray);
 	}
 }

@@ -5,9 +5,11 @@
             <input type="text" name="name" formControlName="name">
             <button>Add Tab</button>
         </form>
+        <button (click)="foo()">click me</button>
+
     </div>
     <div>
-        <div *ngFor="let tab of tabItems">
+        <div *ngFor="let tab of tabs">
             <h4>{{tab.name}}</h4>
         </div>
     </div>
