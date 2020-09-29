@@ -1,16 +1,18 @@
-<div>
-    <div>
-        <form [formGroup]="addTabForm" (ngSubmit)="addTab(addTabForm)">
-            <label for="name">New Tab:</label>
-            <input type="text" name="name" formControlName="name">
-            <button>Add Tab</button>
-        </form>
-        <button (click)="foo()">click me</button>
-
-    </div>
-    <div>
-        <div *ngFor="let tab of tabs">
-            <h4>{{tab.name}}</h4>
-        </div>
-    </div>
-</div>
+<table id="tab-list-container">
+    <tr>
+        <th id="tab-list-header">
+            <form [formGroup]="addTabForm" (ngSubmit)="addTab(addTabForm)">
+                <label for="name">New Tab:</label>
+                <input type="text" name="name" id="add-tab-input" formControlName="name">
+                <button>Add Tab</button>
+            </form>
+        </th>
+    </tr>
+    <tr>
+        <th id="tab-list-body">
+            <div *ngFor="let tab of tabs; let i = index;" [class.active]="activeIndex == i" class="tab-listing" (click)="foo(tab)">
+                <h4 (click)="activateTab(i)">{{tab.name}}</h4>
+            </div>
+        </th>
+    </tr>
+</table>

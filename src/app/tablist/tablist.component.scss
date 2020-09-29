@@ -1,0 +1,33 @@
+#tab-list-container {
+	width: 400px;
+	background-color: #fff;
+	margin: 0px 0px 0px 20px;
+	background-color: blue;
+}
+
+#tab-list-header {
+	padding: 15px 0px;
+}
+
+#tab-list-body {
+	background-color: purple;
+}
+
+#add-tab-input {
+	margin: 0px 20px;
+	padding: 4px 0px;
+}
+
+button {
+	padding: 4px 15px;
+}
+
+.tab-listing {
+	padding: 8px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.active {
+	background-color: orange;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, isDevMode } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { StateService } from '../services/state.service';
 import { Observable, Subscriber, Subscription } from 'rxjs';
@@ -13,15 +13,26 @@ export class TablistComponent implements OnInit {
 	public addTabForm: FormGroup;
 	public tabs: Array<any>;
 	public tabSub: Subscription;
+	public activeIndexSub: Subscription;
+	public activeIndex: number;
 	constructor(private formBuilder: FormBuilder) {}
+
+	getFormBuilder(): FormBuilder {
+		if (isDevMode()) return this.formBuilder;
+		else return undefined;
+	}
 
 	ngOnInit(): void {
 		this.addTabForm = this.formBuilder.group({
 			name: new FormControl('', [ Validators.required, Validators.minLength(1) ])
 		});
 		this.tabSub = this.state.getTabs().subscribe((data) => {
-			console.log('tab data', data);
+			// console.log('tab data', data);
 			this.tabs = data;
+		});
+		this.activeIndexSub = this.state.getActiveIndex().subscribe((activeIndex) => {
+			// console.log('active tab index:', activeIndex);
+			// this.activeIndex = activeIndex;
 		});
 		this.state.refresh();
 	}
@@ -31,10 +42,14 @@ export class TablistComponent implements OnInit {
 	}
 
 	addTab(fg: FormGroup) {
-		console.log('add tab:', fg.value);
+		// console.log('add tab:', fg.value);
+		this.state.addTab({ name: fg.value.name, checks: new Array() });
+		fg.reset();
 	}
 
-	foo() {
-		console.log('that tickles');
+	activateTab(index: number) {
+		console.log('activate tab:', index);
+		if (index > -1) this.state.setActiveTab(index);
+		else throw Error('Invalid tab index');
 	}
 }
