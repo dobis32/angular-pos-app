@@ -1,47 +1,60 @@
-import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { MockTabData } from '../../mocks/mock-data';
+import { Injectable, OnInit } from '@angular/core';
+import { Observer } from '../util/observer';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class StateService {
-	private tabsArray: Array<any>;
-	private activeTabIndex: any;
+	private activeTabIndex: number;
+	private allTabsArray: Array<any>;
+	private allTabsObservers: Array<Observer>;
+	private activeTabObservers: Array<Observer>;
 
-	constructor(
-		private tabsSubject: Subject<any>,
-		private activeIndexSubject: Subject<any>,
-		private activeTabSubject: Subject<any>
-	) {
-		this.setTabs(MockTabData);
-		this.tabsArray = new Array();
+	constructor() {
+		this.activeTabIndex = undefined;
+		this.allTabsArray = new Array();
+		this.allTabsObservers = new Array();
+		this.activeTabObservers = new Array();
 	}
 
-	setTabs(data) {
-		this.tabsArray = data;
+	allTabsSubscribe(cb: Function) {
+		let obs = new Observer(cb);
+		console.log('new all tab sub', obs);
+		this.allTabsObservers.push(obs);
 	}
 
-	getTabs() {
-		return this.tabsSubject;
+	activeIndexSubscribe(cb: Function) {
+		let obs = new Observer(cb);
+		console.log('new active index sub', obs);
+		this.activeTabObservers.push(obs);
 	}
 
-	async addTab(tabData: any) {
-		this.tabsArray.push(tabData);
-		this.tabsSubject.next(this.tabsArray);
+	addTab(data: any) {
+		this.allTabsArray.push(data);
+		console.log('tab data observers', this.allTabsObservers);
+		this.refreshAllTabsObservers();
 	}
 
-	refresh() {
-		this.tabsSubject.next(this.tabsArray);
-	}
-
-	setActiveTab(index: number) {
+	activateTab(index: number) {
 		this.activeTabIndex = index;
-		this.activeIndexSubject.next(index);
-		this.activeTabSubject.next(this.tabsArray[index]);
+		this.refreshActiveIndexObservers();
 	}
 
-	getActiveIndex() {
-		return this.activeIndexSubject;
+	updateTab(index: number, data: any) {
+		this.allTabsArray[index] = data;
+		this.refreshAllTabsObservers();
+	}
+
+	refreshAllTabsObservers() {
+		this.allTabsObservers.forEach((obs) => {
+			console.log('refreshing obs', obs);
+			obs.next(this.allTabsArray);
+		});
+	}
+
+	refreshActiveIndexObservers() {
+		this.activeTabObservers.forEach((obs) => {
+			obs.next(this.activeTabIndex);
+		});
 	}
 }

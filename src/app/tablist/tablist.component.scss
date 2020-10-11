@@ -1,7 +1,8 @@
 #tab-list-container {
 	width: 400px;
 	background-color: #fff;
-	margin: 0px 0px 0px 20px;
+	margin: 0px 0px 0px 0px;
+	display: inline-block;
 	background-color: blue;
 }
 
@@ -28,6 +29,9 @@ button {
 	cursor: pointer;
 }
 
-.active {
+.active-tab {
 	background-color: orange;
+	padding: 8px;
+	text-align: left;
+	cursor: pointer;
 }

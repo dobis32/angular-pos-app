@@ -10,8 +10,8 @@
     </tr>
     <tr>
         <th id="tab-list-body">
-            <div *ngFor="let tab of tabs; let i = index;" [class.active]="activeIndex == i" class="tab-listing" (click)="foo(tab)">
-                <h4 (click)="activateTab(i)">{{tab.name}}</h4>
+            <div *ngFor="let tab of tabs; let i = index;"  [className]="i == activeIndex ? 'active-tab' : 'tab-listing'" (click)="activateTab(i)">
+                <h4>{{tab.name}}</h4>
             </div>
         </th>
     </tr>
