@@ -9,7 +9,8 @@ import { Subscription } from 'rxjs';
 })
 export class ActiveTabComponent {
 	@Input() state: StateService;
+
 	public activeTab: any;
-	private activeTabSub: Subscription;
+
 	constructor() {}
 }

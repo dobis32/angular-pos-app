@@ -11,8 +11,6 @@ export class TablistComponent implements OnInit {
 	@Input() state: StateService;
 	public addTabForm: FormGroup;
 	public tabs: Array<any>;
-	// public tabSub: Subscription;
-	// public activeIndexSub: Subscription;
 	public activeIndex: number;
 	constructor(private formBuilder: FormBuilder) {}
 
@@ -21,18 +19,15 @@ export class TablistComponent implements OnInit {
 			name: new FormControl('', [ Validators.required, Validators.minLength(1) ])
 		});
 		this.state.allTabsSubscribe((data) => {
-			console.log('some new data', data);
 			this.tabs = data;
 		});
 
 		this.state.activeIndexSubscribe((data) => {
-			console.log('new active index', data);
 			this.activeIndex = data;
 		});
 	}
 
 	addTab(fg: FormGroup) {
-		// console.log('add tab:', fg.value);
 		this.state.addTab({ name: fg.value.name, checks: new Array() });
 		fg.reset();
 	}
