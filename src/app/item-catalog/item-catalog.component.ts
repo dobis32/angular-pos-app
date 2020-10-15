@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { StateService } from '../services/state.service';
 
 @Component({
   selector: 'app-item-catalog',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-catalog.component.scss']
 })
 export class ItemCatalogComponent implements OnInit {
-
+  @Input() state: StateService;
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

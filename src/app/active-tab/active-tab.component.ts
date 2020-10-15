@@ -13,4 +13,11 @@ export class ActiveTabComponent {
 	public activeTab: any;
 
 	constructor() {}
+
+	ngOnInit() {
+		this.state.activeTabSubscribe((data: any) => {
+			this.activeTab = data;
+		})
+		this.state.refreshAllTabsObservers();
+	}
 }

@@ -17,6 +17,8 @@ export class StateService {
 		this.allTabsObservers = new Array();
 		this.activeIndexObservers = new Array();
 		this.activeTabObservers = new Array();
+
+		this.allTabsArray = [{ name: 'tab1', items: ['item1', 'item2', 'item3'] }, { name: 'tab2', items: ['item1', 'item2']}];
 	}
 
 	_getAllTabsObservers() {

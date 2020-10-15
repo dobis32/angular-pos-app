@@ -1,10 +1,8 @@
-<table id="active-tab-container">
-    <tr>
-        <th>
-            <app-item-list *ngIf="activeTab" [items]="activeTab.items"></app-item-list>
-        </th>
-        <th id="active-tab">
-            <h3>foo</h3>
-        </th>
-    </tr>
-</table>
+<div id="active-tab-container">
+    <div id="item-list">
+        <app-item-list *ngIf="activeTab" [items]="activeTab.items"></app-item-list>
+    </div>
+    <div id="item-catalog">
+        <app-item-catalog [state]="state"></app-item-catalog>
+    </div>
+</div>
